@@ -41,5 +41,14 @@ bookingRouter.patch("/bookSeats",async(req,res)=>{
     }
 })
 
+bookingRouter.patch("/resetSeats",async(req,res)=>{
+    try {
+        const coachData = await bookingModel.updateMany({},{$set:{isBooked:false}},{multi:true})
+        res.status(201).send({msg:"ticekts reseted succesfully"})
+    } catch (error) {
+        res.status(400).send({msg:"couldn't reset tickets"})
+    }
+})
+
 
 module.exports = bookingRouter
